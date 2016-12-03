@@ -2,10 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamarin_DoubleImages"
+             xmlns:views="clr-namespace:Xamarin_DoubleImages.Views"
              x:Class="Xamarin_DoubleImages.MainPage">
 
-  <Label Text="Welcome to Xamarin Forms!"
-           VerticalOptions="Center"
-           HorizontalOptions="Center" />
+    <views:DoubleImageView FirstImageSource="firstImage" SecondImageSource="secondImage" ImageSize="50" HorizontalOptions="Center" Margin="0,10,0,0"/>
 
 </ContentPage>
