@@ -39,25 +39,30 @@ namespace Xamarin_DoubleImages.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (Control == null)
+            DoubleImageView formView = (e.NewElement as DoubleImageView);
+            if(e.NewElement != null)
             {
-                var view = (Context as Activity).LayoutInflater.Inflate(Resource.Layout.DoubleImageLayout, this, false);
-                var firstImage = view.FindViewById<ImageView>(Resource.Id.first_imageview);
-                var secondImage = view.FindViewById<ImageView>(Resource.Id.second_imageview);
-                // ??????
-                SetNativeControl(view);
-            }
-
-            if (Control != null)
-            {
-                DoubleImageView formView = (e.NewElement as DoubleImageView);
-
-                ExtractFormData(formView);
-
-                //MANAGE touch events
-                if (_updateUICommand != null)
+                if (Control == null)
                 {
-                    Control.Touch += Image_Touch;
+                    var view = (Context as Activity).LayoutInflater.Inflate(Resource.Layout.DoubleImageLayout, this, false);
+                    var firstImage = view.FindViewById<ImageView>(Resource.Id.first_imageview);
+                    var secondImage = view.FindViewById<ImageView>(Resource.Id.second_imageview);
+                    int firstImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.FirstImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
+                    int secondImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.SecondImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
+                    firstImage.SetImageResource(firstImageID);
+                    secondImage.SetImageResource(secondImageID);
+                    SetNativeControl(view);
+                }
+
+                if (Control != null)
+                {
+                    ExtractFormData(formView);
+
+                    //MANAGE touch events
+                    if (_updateUICommand != null)
+                    {
+                        Control.Touch += Image_Touch;
+                    }
                 }
             }
         }
