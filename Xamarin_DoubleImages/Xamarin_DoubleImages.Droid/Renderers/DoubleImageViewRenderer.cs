@@ -18,7 +18,7 @@ using System.Windows.Input;
 [assembly: ExportRenderer(typeof(DoubleImageView), typeof(DoubleImageViewRenderer))]
 namespace Xamarin_DoubleImages.Droid.Renderers
 {
-    class DoubleImageViewRenderer : ViewRenderer
+    class DoubleImageViewRenderer : ViewRenderer<DoubleImageView, LinearLayout>
     {
         private ICommand _updateUICommand;
 
@@ -35,27 +35,30 @@ namespace Xamarin_DoubleImages.Droid.Renderers
             base.Dispose(disposing);
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.View> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<DoubleImageView> e)
         {
             base.OnElementChanged(e);
 
             DoubleImageView formView = (e.NewElement as DoubleImageView);
-            if(e.NewElement != null)
+
+            if (e.NewElement != null)
             {
+                //Even if control is null, android view is generated. So we set a view with the size of form element to attach event
                 if (Control == null)
                 {
                     var view = (Context as Activity).LayoutInflater.Inflate(Resource.Layout.DoubleImageLayout, this, false);
-                    var firstImage = view.FindViewById<ImageView>(Resource.Id.first_imageview);
-                    var secondImage = view.FindViewById<ImageView>(Resource.Id.second_imageview);
-                    int firstImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.FirstImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
-                    int secondImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.SecondImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
-                    firstImage.SetImageResource(firstImageID);
-                    secondImage.SetImageResource(secondImageID);
-                    SetNativeControl(view);
+                    //var firstImage = view.FindViewById<ImageView>(Resource.Id.first_imageview);
+                    //var secondImage = view.FindViewById<ImageView>(Resource.Id.second_imageview);
+                    //int firstImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.FirstImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
+                    //int secondImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.SecondImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
+                    //firstImage.SetImageResource(firstImageID);
+                    //secondImage.SetImageResource(secondImageID);
+                    SetNativeControl((LinearLayout)view);
                 }
 
                 if (Control != null)
                 {
+
                     ExtractFormData(formView);
 
                     //MANAGE touch events
