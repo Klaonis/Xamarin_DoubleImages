@@ -18,7 +18,7 @@ using System.Windows.Input;
 [assembly: ExportRenderer(typeof(DoubleImageView), typeof(DoubleImageViewRenderer))]
 namespace Xamarin_DoubleImages.Droid.Renderers
 {
-    class DoubleImageViewRenderer : ViewRenderer<DoubleImageView, LinearLayout>
+    class DoubleImageViewRenderer : ViewRenderer<DoubleImageView, Android.Views.View>
     {
         private ICommand _updateUICommand;
 
@@ -53,7 +53,7 @@ namespace Xamarin_DoubleImages.Droid.Renderers
                     //int secondImageID = Resources.GetIdentifier(System.IO.Path.GetFileNameWithoutExtension(formView.SecondImageSource.ToLower()), "drawable", "Xamarin_DoubleImages.Droid");
                     //firstImage.SetImageResource(firstImageID);
                     //secondImage.SetImageResource(secondImageID);
-                    SetNativeControl((LinearLayout)view);
+                    SetNativeControl(view);
                 }
 
                 if (Control != null)
